@@ -47,4 +47,22 @@ namespace sbdd {
 		return nextNum_ - 1;
 	}
 
+	int SBDD::makeNode(int index, int left, int right)
+	{
+		if (left == right) {
+			return left;
+		}
+		else {
+			int res = -1;
+			res = lookup(TableStr(index, left, right));
+			if (res != -1) {
+				return res;
+			}
+			else
+			{
+				return insert(TableStr(index, left, right));
+			}
+		}
+	}
+
 }

@@ -139,11 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bf.cpp" />
+    <ClCompile Include="export.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pla.cpp" />
     <ClCompile Include="sbdd.cpp" />
+    <ClCompile Include="uniData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bf.h" />
+    <ClInclude Include="export.h" />
+    <ClInclude Include="pla.h" />
     <ClInclude Include="sbdd.h" />
+    <ClInclude Include="uniData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

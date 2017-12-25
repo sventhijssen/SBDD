@@ -10,6 +10,8 @@ namespace sbdd {
 		int left;
 		int right;
 
+		TableStr(int i = -1, int l = -1, int r = -1) { index = i; left = l; right = r; }
+
 		bool operator == (const TableStr &tableStr)
 		{
 			if (index == tableStr.index && left == tableStr.left && right == tableStr.right) {
@@ -34,6 +36,8 @@ namespace sbdd {
 		int lookup(const TableStr &tableStr);
 		// ¬ставл€ет узел в таблицу и возвращает его номер.
 		int insert(const TableStr &tableStr);
+		// —оздаем и добавл€ем если можно новый узел.
+		int makeNode(int index, int left, int right);
 
 
 	private:
