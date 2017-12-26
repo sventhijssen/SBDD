@@ -1,5 +1,4 @@
 #include "sbdd.h"
-#include "uniData.h"
 
 namespace sbdd {
 
@@ -165,7 +164,7 @@ namespace sbdd {
 		return function;
 	}
 
-	void SBDD::out(std::ostream &stream)
+	void SBDD::out(std::ostream &stream) const
 	{
 		stream << "SBDD:\n";
 		size_t size = fNames_.size();

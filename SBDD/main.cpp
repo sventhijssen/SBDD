@@ -3,6 +3,7 @@
 #include "sbdd.h"
 #include "pla.h"
 #include "uniData.h"
+#include "export.h"
 
 int main()
 {
@@ -17,6 +18,10 @@ int main()
 	sbdd::SBDD sbddG;
 	sbddG.build(uniData);
 	sbddG.out(std::cout);
+	std::string fileName = "export.txt";
+	exportToFileSBDD(sbddG, fileName);
+	fileName = "export.dot";
+	exportToFileDOT(sbddG, fileName);
 
 	return 0;
 }

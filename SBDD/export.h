@@ -2,4 +2,8 @@
 
 #include <string>
 
-void exportToFileSBDD(const std::string &fileName);
+class SBDD;
+
+bool exportToFileSBDD(const sbdd::SBDD &sbddG, std::string &fileName);
+
+bool exportToFileDOT(const sbdd::SBDD &sbddG, std::string &fileName);

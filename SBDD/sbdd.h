@@ -3,8 +3,7 @@
 #include <map>
 #include <vector>
 
-class UniData;
-class BoolFunction;
+#include "uniData.h"
 
 namespace sbdd {
 
@@ -45,9 +44,11 @@ namespace sbdd {
 
 		void build(const UniData &data);
 
-		void out(std::ostream &stream);
-		void toFile(const std::string &fileName);
+		void out(std::ostream &stream) const;
 
+		std::map<int, TableStr> table() const { return table_; }
+		std::vector<std::string> fNames() const { return fNames_; }
+		std::vector<int> fRoot() const { return fRoot_; }
 
 	private:
 		void buildFunctionPrivate(const BoolFunction &function);
