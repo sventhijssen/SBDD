@@ -16,6 +16,7 @@ int main()
 
 	sbdd::SBDD sbddG;
 	sbddG.build(uniData);
+	sbddG.out(std::cout);
 
 	return 0;
 }

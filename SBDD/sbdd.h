@@ -45,6 +45,10 @@ namespace sbdd {
 
 		void build(const UniData &data);
 
+		void out(std::ostream &stream);
+		void toFile(const std::string &fileName);
+
+
 	private:
 		void buildFunctionPrivate(const BoolFunction &function);
 		int buildPrivate(BoolFunction function, int index);

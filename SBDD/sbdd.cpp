@@ -88,7 +88,8 @@ namespace sbdd {
 
 	void SBDD::buildFunctionPrivate(const BoolFunction &function)
 	{
-		buildPrivate(function, 0);
+		int res = buildPrivate(function, 0);
+		fRoot_.push_back(res);
 	}
 
 	int SBDD::buildPrivate(BoolFunction function, int index)
@@ -163,4 +164,21 @@ namespace sbdd {
 		}
 		return function;
 	}
+
+	void SBDD::out(std::ostream &stream)
+	{
+		stream << "SBDD:\n";
+		size_t size = fNames_.size();
+		for (size_t i = 0; i < size; ++i) {
+			stream << fNames_[i] << " -> " << fRoot_[i] << "\n";
+		}
+		stream << "\n";
+		auto iter = table_.begin();
+		auto end = table_.end();
+		for (; iter != end; ++iter) {
+			stream << iter->first << "   " << iter->second.index << "   " << iter->second.left << "   " << iter->second.right << "\n";
+		}
+		stream << "\n";
+	}
+
 }
