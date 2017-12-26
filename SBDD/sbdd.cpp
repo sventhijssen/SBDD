@@ -1,4 +1,5 @@
 #include "sbdd.h"
+#include "uniData.h"
 
 namespace sbdd {
 
@@ -65,4 +66,101 @@ namespace sbdd {
 		}
 	}
 
+	void SBDD::build(const UniData &data)
+	{
+		table_.clear();
+		fNames_.clear();
+		fRoot_.clear();
+		nextNum_ = 2;
+		TableStr tableStr;
+		tableStr.index = tableStr.left = tableStr.right = -1;
+		table_.insert(std::pair<int, TableStr>(0, tableStr));
+		table_.insert(std::pair<int, TableStr>(1, tableStr));
+
+		std::map<std::string, BoolFunction> functions = data.functions();
+		auto iter = functions.begin();
+		auto end = functions.end();
+		for (; iter != end; ++iter) {
+			fNames_.push_back(iter->first);
+			buildFunctionPrivate(iter->second);
+		}
+	}
+
+	void SBDD::buildFunctionPrivate(const BoolFunction &function)
+	{
+		buildPrivate(function, 0);
+	}
+
+	int SBDD::buildPrivate(BoolFunction function, int index)
+	{
+		if (static_cast<size_t>(index) >= function.cubes_[0].size()) {
+			if (function.cubes_.empty()) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
+		}
+		else {
+			bool b0 = false;
+			bool b1 = false;
+			BoolFunction f0 = setZero(function, index);
+			BoolFunction f1 = setOne(function, index);
+			int v0 = -1;
+			int v1 = -1;
+			if (f0.isOne()) {
+				v0 = 1;
+				b0 = true;
+			}
+			if (f0.isZero()) {
+				v0 = 0;
+				b0 = true;
+			}
+			if (f1.isOne()) {
+				v1 = 1;
+				b1 = true;
+			}
+			if (f1.isZero()) {
+				v1 = 0;
+				b1 = true;
+			}
+			if (!b0) {
+				v0 = buildPrivate(setZero(function, index), index + 1);
+			}
+			if (!b1) {
+				v1 = buildPrivate(setOne(function, index), index + 1);
+			}
+			return makeNode(index, v0, v1);
+		}
+	}
+
+	BoolFunction SBDD::setZero(BoolFunction function, int index)
+	{
+		int size = function.cubes_.size();
+		for (int i = 0; i < size; ++i) {
+			if (function.cubes_[i][index] == '0') {
+				function.cubes_[i][index] = '-';
+			}
+			if (function.cubes_[i][index] == '1') {
+				function.cubes_.erase(function.cubes_.begin() + i);
+				size--;
+			}
+		}
+		return function;
+	}
+
+	BoolFunction SBDD::setOne(BoolFunction function, int index)
+	{
+		int size = function.cubes_.size();
+		for (int i = 0; i < size; ++i) {
+			if (function.cubes_[i][index] == '1') {
+				function.cubes_[i][index] = '-';
+			}
+			if (function.cubes_[i][index] == '0') {
+				function.cubes_.erase(function.cubes_.begin() + i);
+				size--;
+			}
+		}
+		return function;
+	}
 }

@@ -1,6 +1,10 @@
 #pragma once
 
 #include <map>
+#include <vector>
+
+class UniData;
+class BoolFunction;
 
 namespace sbdd {
 
@@ -39,9 +43,19 @@ namespace sbdd {
 		// Создаем и добавляем если можно новый узел.
 		int makeNode(int index, int left, int right);
 
+		void build(const UniData &data);
+
+	private:
+		void buildFunctionPrivate(const BoolFunction &function);
+		int buildPrivate(BoolFunction function, int index);
+
+		BoolFunction setZero(BoolFunction function, int index);
+		BoolFunction setOne(BoolFunction function, int index);
 
 	private:
 		std::map<int, TableStr> table_;
+		std::vector<std::string> fNames_;
+		std::vector<int> fRoot_;
 		int nextNum_;
 
 	};	// class SBDD
