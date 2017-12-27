@@ -208,3 +208,29 @@ void SBDD::bddPrivate(BDD &bdd, int index)
 	bddPrivate(bdd, str.left);
 	bddPrivate(bdd, str.right);
 }
+
+void SBDD::addBdd(const BDD &bdd)
+{
+	std::map<int, TableStr> table = bdd.table_;
+	std::map<int, int> wb;
+	wb.insert(std::pair<int, int>(1, 1));
+	wb.insert(std::pair<int, int>(0, 0));
+	table.erase(1);
+	table.erase(0);
+
+	int u = 0;
+	while (table.size()) {
+		auto iter = table.begin();
+		for (; iter != table.end();) {
+			if (wb.count(iter->second.left) && wb.count(iter->second.right)) {
+				u = makeNode(iter->second.index, wb[iter->second.left], wb[iter->second.right]);
+				wb.insert(std::pair<int, int>(iter->first, u));
+				iter = table.erase(iter);
+				continue;
+			}
+			++iter;
+		}
+	}
+	fRoot_.push_back(u);
+	fNames_.push_back(bdd.name());
+}

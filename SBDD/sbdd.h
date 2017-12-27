@@ -35,6 +35,8 @@ public:
 
 	BDD bdd(const std::string &fName);
 
+	void addBdd(const BDD &bdd);
+
 private:
 	void buildFunctionPrivate(const BoolFunction &function);
 	int buildPrivate(BoolFunction function, int index);

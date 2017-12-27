@@ -39,5 +39,9 @@ int main()
 	BDD res = bdd.apply(bdd2, OP::Xor);
 	res.show(std::cout);
 
+	sbddG.addBdd(res);
+	fileName = "exportWithRes.dot";
+	exportToFileDOT(sbddG, fileName);
+
 	return 0;
 }

@@ -36,6 +36,7 @@ public:
 	BDD apply(BDD &bdd2, OP op);
 
 	void setName(const std::string &name) { fName_ = name; }
+	std::string name() const { return fName_; }
 
 private:
 	int applyPrivate(BDD &result, BDD &bdd2, OP op, int u1, int u2);
