@@ -3,7 +3,7 @@
 #include "sbdd.h"
 #include "export.h"
 
-bool exportToFileSBDD(const sbdd::SBDD &sbddG, std::string &fileName)
+bool exportToFileSBDD(const SBDD &sbddG, std::string &fileName)
 {
 	std::ofstream file;
 	file.open(fileName);
@@ -15,13 +15,13 @@ bool exportToFileSBDD(const sbdd::SBDD &sbddG, std::string &fileName)
 	return false;
 }
 
-bool exportToFileDOT(const sbdd::SBDD &sbddG, std::string &fileName)
+bool exportToFileDOT(const SBDD &sbddG, std::string &fileName)
 {
 	std::ofstream file;
 	file.open(fileName);
 	if (file.is_open()) {
 		
-		std::map<int, sbdd::TableStr> table = sbddG.table();
+		std::map<int, TableStr> table = sbddG.table();
 		std::vector<std::string> fNames = sbddG.fNames();
 		std::vector<int> fRoot = sbddG.fRoot();
 

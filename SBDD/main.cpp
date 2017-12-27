@@ -5,6 +5,7 @@
 #include "uniData.h"
 #include "export.h"
 #include "bf.h"
+#include "bdd.h"
 
 int main()
 {
@@ -21,13 +22,16 @@ int main()
 	uniData.fromBF(bf);
 	uniData.show(std::cout);
 
-	sbdd::SBDD sbddG;
+	SBDD sbddG;
 	sbddG.build(uniData);
-	sbddG.out(std::cout);
 	std::string fileName = "export.txt";
 	exportToFileSBDD(sbddG, fileName);
 	fileName = "export.dot";
 	exportToFileDOT(sbddG, fileName);
+	sbddG.out(std::cout);
+
+	BDD bdd = sbddG.bdd("A");
+	bdd.show(std::cout);
 
 	return 0;
 }
