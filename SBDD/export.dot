@@ -1,0 +1,29 @@
+graph sbdd { 
+A[shape="plaintext"];
+A -- 5;
+B[shape="plaintext"];
+B -- 8;
+1[shape="box"];
+0[shape="box"];
+2[label="x2"];
+3[label="x1"];
+4[label="x1"];
+5[label="x0"];
+6[label="x2"];
+7[label="x1"];
+8[label="x0"];
+2 -- 1 [style="dotted"];
+2 -- 0;
+3 -- 0 [style="dotted"];
+3 -- 2;
+4 -- 0 [style="dotted"];
+4 -- 1;
+5 -- 3 [style="dotted"];
+5 -- 4;
+6 -- 0 [style="dotted"];
+6 -- 1;
+7 -- 6 [style="dotted"];
+7 -- 1;
+8 -- 4 [style="dotted"];
+8 -- 7;
+ }
