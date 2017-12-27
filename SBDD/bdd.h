@@ -47,6 +47,7 @@ private:
 	std::string fName_;
 	int fRoot_;
 	int nextNum_;
+	std::vector<std::string> vars_;
 
 	std::map<int, std::map<int, int>> G_;
 };

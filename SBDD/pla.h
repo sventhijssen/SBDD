@@ -19,6 +19,8 @@ public:
 	int p() const { return p_; }
 	int i() const { return i_; }
 	int o() const { return o_; }
+	std::vector<std::string> vars() const { return vars_; }
+	std::vector<std::string> funs() const { return funs_; }
 	std::vector<StrPLA> cubes() const { return cubes_; }
 
 	void clear() { p_ = 0; i_ = 0; o_ = 0; cubes_.clear(); }
@@ -30,4 +32,6 @@ private:
 	int i_;
 	int o_;
 	std::vector<StrPLA> cubes_;
+	std::vector<std::string> vars_;
+	std::vector<std::string> funs_;
 };

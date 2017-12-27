@@ -65,6 +65,7 @@ int SBDD::makeNode(int index, int left, int right)
 
 void SBDD::build(const UniData &data)
 {
+	vars_ = data.vars();
 	table_.clear();
 	fNames_.clear();
 	fRoot_.clear();
@@ -91,7 +92,7 @@ void SBDD::buildFunctionPrivate(const BoolFunction &function)
 
 int SBDD::buildPrivate(BoolFunction function, int index)
 {
-	if (static_cast<size_t>(index) >= function.cubes_[0].size()) {
+	if (static_cast<size_t>(index) >= vars_.size()) {
 		if (function.cubes_.empty()) {
 			return 0;
 		}
@@ -175,14 +176,13 @@ void SBDD::out(std::ostream &stream) const
 	auto iter = table_.begin();
 	auto end = table_.end();
 	for (; iter != end; ++iter) {
-		stream << iter->first << "   " << iter->second.index << "   " << iter->second.left << "   " << iter->second.right << "\n";
+		stream << iter->first << "   " << iter->second.index << "(" + (iter->second.index != -1 ? vars_[iter->second.index] : "-1") + ")"<< "   " << iter->second.left << "   " << iter->second.right << "\n";
 	}
 	stream << "\n";
 }
 
 BDD SBDD::bdd(const std::string &fName)
 {
-	//std::map<int, TableStr> table_;
 	BDD bdd;
 	auto iter = std::find(fNames_.begin(), fNames_.end(), fName);
 	if (fNames_.end() != iter) {
@@ -191,6 +191,7 @@ BDD SBDD::bdd(const std::string &fName)
 		bdd.nextNum_ = nextNum_;
 		bdd.table_.clear();
 		bddPrivate(bdd, bdd.fRoot_);
+		bdd.vars_ = vars_;
 		return bdd;
 	}
 	else {
