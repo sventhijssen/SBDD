@@ -4,6 +4,7 @@
 #include "pla.h"
 #include "uniData.h"
 #include "export.h"
+#include "bf.h"
 
 int main()
 {
@@ -22,6 +23,10 @@ int main()
 	exportToFileSBDD(sbddG, fileName);
 	fileName = "export.dot";
 	exportToFileDOT(sbddG, fileName);
+
+	BoolFormula bf;
+	bf.setData("ex1.bf");
+	bf.show(std::cout);
 
 	return 0;
 }
