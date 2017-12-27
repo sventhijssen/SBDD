@@ -33,5 +33,11 @@ int main()
 	BDD bdd = sbddG.bdd("A");
 	bdd.show(std::cout);
 
+	BDD bdd2 = sbddG.bdd("B");
+	bdd2.show(std::cout);
+
+	BDD res = bdd.apply(bdd2, OP::Xor);
+	res.show(std::cout);
+
 	return 0;
 }
