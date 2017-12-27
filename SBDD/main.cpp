@@ -12,8 +12,13 @@ int main()
 	pla.setData("ex1.pla");
 	pla.show(std::cout);
 
+	BoolFormula bf;
+	bf.setData("ex1.bf");
+	bf.show(std::cout);
+
 	UniData uniData;
-	uniData.fromPLA(pla);
+	//uniData.fromPLA(pla);
+	uniData.fromBF(bf);
 	uniData.show(std::cout);
 
 	sbdd::SBDD sbddG;
@@ -23,10 +28,6 @@ int main()
 	exportToFileSBDD(sbddG, fileName);
 	fileName = "export.dot";
 	exportToFileDOT(sbddG, fileName);
-
-	BoolFormula bf;
-	bf.setData("ex1.bf");
-	bf.show(std::cout);
 
 	return 0;
 }

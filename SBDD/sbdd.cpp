@@ -125,10 +125,10 @@ namespace sbdd {
 				b1 = true;
 			}
 			if (!b0) {
-				v0 = buildPrivate(setZero(function, index), index + 1);
+				v0 = buildPrivate(f0, index + 1);
 			}
 			if (!b1) {
-				v1 = buildPrivate(setOne(function, index), index + 1);
+				v1 = buildPrivate(f1, index + 1);
 			}
 			return makeNode(index, v0, v1);
 		}
@@ -144,6 +144,7 @@ namespace sbdd {
 			if (function.cubes_[i][index] == '1') {
 				function.cubes_.erase(function.cubes_.begin() + i);
 				size--;
+				i--;
 			}
 		}
 		return function;
@@ -159,6 +160,7 @@ namespace sbdd {
 			if (function.cubes_[i][index] == '0') {
 				function.cubes_.erase(function.cubes_.begin() + i);
 				size--;
+				i--;
 			}
 		}
 		return function;
