@@ -32,6 +32,7 @@ public:
 	std::map<int, TableStr> table() const { return table_; }
 	std::vector<std::string> fNames() const { return fNames_; }
 	std::vector<int> fRoot() const { return fRoot_; }
+	std::vector<std::string> vars() const { return vars_; }
 
 	BDD bdd(const std::string &fName);
 
@@ -50,6 +51,7 @@ private:
 	std::map<int, TableStr> table_;
 	std::vector<std::string> fNames_;
 	std::vector<int> fRoot_;
+	std::vector<std::string> vars_;
 	int nextNum_;
 
 };	// class SBDD

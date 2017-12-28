@@ -16,6 +16,7 @@ BDD::BDD(const BDD &bdd)
 	fName_ = bdd.fName_;
 	fRoot_ = bdd.fRoot_;
 	nextNum_ = bdd.nextNum_;
+	vars_ = bdd.vars_;
 }
 
 bool BDD::member(const TableStr &tableStr)
@@ -74,7 +75,7 @@ void BDD::show(std::ostream &stream)
 	auto iter = table_.begin();
 	auto end = table_.end();
 	for (; iter != end; ++iter) {
-		stream << iter->first << " -> " << iter->second.index << "   " << iter->second.left << "   " << iter->second.right << "\n";
+		stream << iter->first << " -> " << iter->second.index << "(" + (iter->second.index != -1 ? vars_[iter->second.index] : "-1") + ")" << "   " << iter->second.left << "   " << iter->second.right << "\n";
 	}
 	stream << "\n";
 }
@@ -91,6 +92,7 @@ BDD BDD::apply(BDD &bdd2, OP op)
 	G_.clear();
 	result.fRoot_ = applyPrivate(result, bdd2, op, fRoot_, bdd2.fRoot_);
 	result.nextNum_ = result.fRoot_ + 1;
+	result.vars_ = vars_;
 	return result;
 }
 
@@ -110,13 +112,13 @@ int BDD::applyPrivate(BDD &result, BDD &bdd2, OP op, int u1, int u2)
 					applyPrivate(result, bdd2, op, table_[u1].right, bdd2.table_[u2].right));
 			}
 			else {
-				if (table_[u1].index < bdd2.table_[u2].index) {
-					u = result.makeNode(bdd2.table_[u2].index, applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].left),
-						applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].right));
-				}
-				else {
+				if ((table_[u1].index == -1 ? bdd2.vars_.size() : table_[u1].index) < (bdd2.table_[u2].index == -1 ? bdd2.vars_.size() : bdd2.table_[u2].index)) {
 					u = result.makeNode(table_[u1].index, applyPrivate(result, bdd2, op, table_[u1].left, u2),
 						applyPrivate(result, bdd2, op, table_[u1].right, u2));
+				}
+				else {
+					u = result.makeNode(bdd2.table_[u2].index, applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].left),
+						applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].right));
 				}
 			}
 		}

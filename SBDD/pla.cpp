@@ -21,6 +21,20 @@ bool PLA::setData(const std::string &fileName)
 	file >> word;
 	size_t size = 0;
 	while (word[0] == '.') {
+		if (word == ".ilb") {
+			for (int i = 0; i < i_; ++i) {
+				file >> word;
+				vars_.push_back(word);
+			}
+			file >> word;
+		}
+		if (word == ".ob") {
+			for (int i = 0; i < o_; ++i) {
+				file >> word;
+				funs_.push_back(word);
+			}
+			file >> word;
+		}
 		if (word == ".i") {
 			file >> i_;
 			file >> word;
@@ -57,15 +71,37 @@ bool PLA::setData(const std::string &fileName)
 		++i;
 	}
 	file.close();
+
+	if (vars_.size() == 0) {
+		for (int i = 0; i < i_; ++i) {
+			vars_.push_back("x" + std::to_string(i));
+		}
+	}
+	if (funs_.size() == 0) {
+		for (int i = 0; i < o_; ++i) {
+			vars_.push_back("f" + std::to_string(i));
+		}
+	}
+
 	return true;
 }
 
 void PLA::show(std::ostream &stream)
 {
 	stream << "PLA:\n";
-	stream << ".p " << p_ << "\n";
 	stream << ".i " << i_ << "\n";
-	stream << ".o " << o_ << "\n\n";
+	stream << ".o " << o_ << "\n";
+	stream << ".ilb ";
+	for (int i = 0; i < i_; ++i) {
+		stream << vars_[i] << " ";
+	}
+	stream << "\n";
+	stream << ".ob ";
+	for (int i = 0; i < o_; ++i) {
+		stream << funs_[i] << " ";
+	}
+	stream << "\n";
+	stream << ".p " << p_ << "\n\n";
 	
 	auto iter = cubes_.begin();
 	auto end = cubes_.end();

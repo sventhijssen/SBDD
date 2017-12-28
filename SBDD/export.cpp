@@ -37,7 +37,7 @@ bool exportToFileDOT(const SBDD &sbddG, std::string &fileName)
 		auto end = table.end();
 		for (; iter != end; ++iter) {
 			if (iter->first != 0 && iter->first != 1) {
-				file << std::to_string(iter->first) << "[label=\"x" + std::to_string(iter->second.index) + "\"];\n";
+				file << std::to_string(iter->first) << "[label=\"" + sbddG.vars()[iter->second.index] + "\"];\n";
 			}
 		}
 		iter = table.begin();

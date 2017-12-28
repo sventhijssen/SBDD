@@ -60,6 +60,10 @@ void BoolFormula::show(std::ostream &stream)
 	for (; iterF != endF; ++iterF) {
 		stream << iterF->first << ":\n";
 		DNF dnf = iterF->second;
+		if (dnf.dnf_[0][0] == "1" || dnf.dnf_[0][0] == "0") {
+			stream << dnf.dnf_[0][0] << "\n";
+			continue;
+		}
 		size_t sizeC = dnf.dnf_.size();
 		for (size_t i = 0; i < sizeC; ++i) {
 			size_t sizeV = dnf.dnf_[i].size();
@@ -81,6 +85,18 @@ void BoolFormula::show(std::ostream &stream)
 void BoolFormula::formulaToDNF(const std::string &nameF, std::string &formul)
 {
 	DNF dnf;
+	if (formul == "1") {
+		dnf.dnf_.push_back(std::vector<std::string>());
+		dnf.dnf_[0].push_back("1");
+		functions_.insert(std::pair<std::string, DNF>(nameF, dnf));
+		return;
+	}
+	if (formul == "0") {
+		dnf.dnf_.push_back(std::vector<std::string>());
+		dnf.dnf_[0].push_back("0");
+		functions_.insert(std::pair<std::string, DNF>(nameF, dnf));
+		return;
+	}
 	std::vector<std::string> cons = split(formul, '+');
 	size_t size = cons.size();
 	for (size_t i = 0; i < size; ++i) {

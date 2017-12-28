@@ -28,7 +28,10 @@ public:
 	BoolFunction function(const std::string &fName);
 
 	void show(std::ostream &stream);
+
+	std::vector<std::string> vars() const { return vars_; }
 	
 private:
 	std::map<std::string, BoolFunction> functions_;
+	std::vector<std::string> vars_;
 };
