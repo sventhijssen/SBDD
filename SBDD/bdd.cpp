@@ -113,12 +113,24 @@ int BDD::applyPrivate(BDD &result, BDD &bdd2, OP op, int u1, int u2)
 			}
 			else {
 				if (table_[u1].index < bdd2.table_[u2].index) {
-					u = result.makeNode(bdd2.table_[u2].index, applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].left),
-						applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].right));
+					if (table_[u1].index != -1) {
+						u = result.makeNode(table_[u1].index, applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].left),
+							applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].right));
+					}
+					else {
+						u = result.makeNode(bdd2.table_[u2].index, applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].left),
+							applyPrivate(result, bdd2, op, u1, bdd2.table_[u2].right));
+					}
 				}
 				else {
-					u = result.makeNode(table_[u1].index, applyPrivate(result, bdd2, op, table_[u1].left, u2),
-						applyPrivate(result, bdd2, op, table_[u1].right, u2));
+					if (bdd2.table_[u2].index != -1) {
+						u = result.makeNode(bdd2.table_[u2].index, applyPrivate(result, bdd2, op, table_[u1].left, u2),
+							applyPrivate(result, bdd2, op, table_[u1].right, u2));
+					}
+					else {
+						u = result.makeNode(table_[u1].index, applyPrivate(result, bdd2, op, table_[u1].left, u2),
+							applyPrivate(result, bdd2, op, table_[u1].right, u2));
+					}
 				}
 			}
 		}
