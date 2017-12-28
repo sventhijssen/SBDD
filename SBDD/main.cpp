@@ -36,7 +36,7 @@ int main()
 	BDD bdd2 = sbddG.bdd("g");
 	bdd2.show(std::cout);
 
-	BDD res = bdd.apply(bdd2, OP::And);
+	BDD res = bdd.apply(bdd2, OP::Xor);
 	res.setName("t");
 	res.show(std::cout);
 
