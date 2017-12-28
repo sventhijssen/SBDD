@@ -1,3 +1,2 @@
-A=x*y+y*!z
-B=x*z+y
-C=0
+A=x+y+z
+B=x*y*z

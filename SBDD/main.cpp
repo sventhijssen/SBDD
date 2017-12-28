@@ -18,8 +18,8 @@ int main()
 	bf.show(std::cout);
 
 	UniData uniData;
-	uniData.fromPLA(pla);
-	//uniData.fromBF(bf);
+	//uniData.fromPLA(pla);
+	uniData.fromBF(bf);
 	uniData.show(std::cout);
 
 	SBDD sbddG;
@@ -30,10 +30,10 @@ int main()
 	exportToFileDOT(sbddG, fileName);
 	sbddG.out(std::cout);
 
-	BDD bdd = sbddG.bdd("f");
+	BDD bdd = sbddG.bdd("A");
 	bdd.show(std::cout);
 
-	BDD bdd2 = sbddG.bdd("g");
+	BDD bdd2 = sbddG.bdd("B");
 	bdd2.show(std::cout);
 
 	BDD res = bdd.apply(bdd2, OP::Xor);
