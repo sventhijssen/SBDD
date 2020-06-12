@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 #include "bdd.h"
 
@@ -148,7 +149,7 @@ int BDD::operation(int op1, int op2, OP op)
 			return 0;
 		}
 	}
-	if (op = OP::Xor) {
+	if (op == OP::Xor) {
 		if (op1 != op2) {
 			return 1;
 		}

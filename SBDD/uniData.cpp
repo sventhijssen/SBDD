@@ -1,3 +1,6 @@
+#include <string>
+#include <iostream>
+
 #include "uniData.h"
 #include "pla.h"
 #include "bf.h"
